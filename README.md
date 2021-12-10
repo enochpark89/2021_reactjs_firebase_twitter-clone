@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+# Twitter-Clone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Development
 
-In the project directory, you can run:
+1. Install reactjs.
+2. Use Google Firebase.
+    a. Login 
+    b. Create a project
+    c. Create a web app
+    - Google provide instruction on implementing Firebase to your app using JavaScript.
+    - There are better way if you click javascript react
+    ```js
+    npm install --save firebase
+    ```
+    *Please refer to the link: https://www.npmjs.com/package/firebase*    
 
-### `npm start`
+3. Create firebase.js that contains firebase config
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```js
+import * as firebase from "firebase/app";
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  // .....(hidden but givien by Google)
+  };
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  // initialize firebase
 
-### `npm test`
+export default firebase.initializeApp(firebaseConfig);
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. import firebase.js from index.js
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import firebase from './firebase';
+// you can view firebase object from the console if imported successfully.
+console.log(firebase);
 
-### `npm run build`
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# 2. Secure keys
 
-### `npm run eject`
+- If you put the API keys and sensitive information, it is better to put it in .env. 
+- This is not a security, when people run reactjs, it actually access the keys. This is only hiding from Github. 
+- If you build in the production, create-react-app will get the keys from .env.
+firebase.js
+```js
+const firebaseConfig = {
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGIN_ID,
+    appId: process.env.REACT_APP_APP_ID,
+  };
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# 3. Router Set up
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Use react-router-dom to create these routes.
+- Create a seperate component for Router as router.js.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Structure:
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- components
+-- app.js
+- routes
+-- Auth.js: login page
+--  
